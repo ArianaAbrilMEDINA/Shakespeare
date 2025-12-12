@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shakespeare Today: Amor, Ambición y Locura</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --sangre: #720e1e;       /* Rojo oscuro dramático */
+            --oro: #c5a059;          /* Dorado antiguo */
+            --tinta: #1a1a1a;        /* Negro casi puro */
+            --pergamino: #f4e4bc;    /* Color papel viejo */
+            --cuero: #2e1a0f;        /* Marrón oscuro */
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            /* Fondo de textura de papel viejo */
+            background-color: #dcbfa6;
+            background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png');
+            color: var(--tinta);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* === PORTADA === */
+        header.portada {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/fondo.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            text-align: center;
+            padding: 100px 20px;
+            border-bottom: 10px double var(--oro);
+            color: #fff;
+        }
+
+        h1 {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 4rem;
+            color: var(--oro);
+            text-shadow: 4px 4px 0 #000;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .subtitulo-portada {
+            font-family: 'IM Fell English SC', serif;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            margin-top: 15px;
+            border-top: 2px solid var(--oro);
+            border-bottom: 2px solid var(--oro);
+            display: inline-block;
+            padding: 10px 20px;
+        }
+
+        /* === NAVEGACIÓN === */
+        nav {
+            background: var(--cuero);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            text-align: center;
+            padding: 10px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            border-bottom: 3px solid var(--oro);
+        }
+
+        nav a {
+            color: var(--pergamino);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            margin: 0 15px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--oro);
+            text-shadow: 0 0 5px var(--oro);
+        }
+
+        /* === CONTENEDOR PRINCIPAL (LA REVISTA) === */
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: var(--pergamino);
+            padding: 60px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.6);
+            border: 1px solid #cbb592;
+            outline: 10px solid var(--cuero); 
+            position: relative;
+        }
+
+        /* Adornos en las esquinas */
+        .container::before, .container::after {
+            content: "⚜";
+            font-size: 40px;
+            color: var(--cuero);
+            position: absolute;
+        }
+        .container::before { top: 10px; left: 10px; }
+        .container::after { bottom: 10px; right: 10px; }
+
+        /* === ESTILOS DE SECCIONES === */
+        section {
+            margin-bottom: 80px;
+            border-bottom: 2px dashed var(--cuero);
+            padding-bottom: 40px;
+        }
+
+        h2.seccion-titulo {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 2.5rem;
+            color: var(--sangre);
+            text-align: center;
+            border-bottom: 3px double var(--tinta);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+        }
+
+        h3.titular-noticia {
+            font-family: 'IM Fell English SC', serif;
+            font-size: 1.8rem;
+            text-align: center;
+            font-weight: bold;
+            margin: 20px 0;
+            color: var(--cuero);
+            text-transform: uppercase;
+        }
+
+        .entrevista {
+            background: rgba(255,255,255,0.4);
+            border-left: 5px solid var(--sangre);
+            padding: 20px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        .frase-destacada {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1.8rem;
+            text-align: center;
+            color: var(--tinta);
+            margin: 40px 0;
+            position: relative;
+        }
+        .frase-destacada::before { content: "“"; font-size: 4rem; position: absolute; top: -30px; left: 20px; color: var(--oro); opacity: 0.5; }
+
+        /* === IMÁGENES / CÓMIC === */
+        .marco-comic {
+            border: 3px solid var(--tinta);
+            background: #fff;
+            padding: 10px;
+            margin: 20px auto;
+            text-align: center;
+            width: 80%;
+            box-shadow: 5px 5px 0 var(--cuero);
+        }
+        .marco-comic img {
+            width: 100%;
+            filter: sepia(50%) contrast(120%);
+        }
+        .caption { font-family: 'IM Fell English SC'; font-size: 0.9rem; margin-top: 5px; }
+
+        /* === HORÓSCOPO (GRID) === */
+        .horoscopo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .signo-card {
+            background: rgba(46, 26, 15, 0.05);
+            border: 1px solid var(--cuero);
+            padding: 15px;
+            text-align: center;
+        }
+
+        .signo-titulo {
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            color: var(--sangre);
+            border-bottom: 1px solid var(--oro);
+            margin-bottom: 10px;
+        }
+        /* === TAROT INTERACTIVO 3D === */
+.horoscopo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Cartas un poco más angostas */
+    gap: 25px;
+    perspective: 1000px; /* Necesario para el efecto 3D */
+}
+
+/* El contenedor de la carta */
+.carta-tarot {
+    background-color: transparent;
+    height: 280px; /* Altura fija para que todas sean iguales */
+    cursor: pointer;
+}
+
+/* El "cuerpo" que gira */
+.carta-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Clase que aplicaremos con JS para girar */
+.carta-tarot.girada .carta-inner {
+    transform: rotateY(180deg);
+}
+
+/* Estilos comunes para Frente y Dorso */
+.carta-frente, .carta-dorso {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border: 2px solid var(--oro);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+/* === FRENTE DE LA CARTA (Diseño bonito) === */
+.carta-frente {
+    background-color: var(--cuero); /* Color oscuro */
+    background-image: url('https://www.transparenttextures.com/patterns/dark-leather.png');
+    color: var(--oro);
+}
+
+.carta-frente h3 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.8rem;
+    margin: 10px 0;
+}
+
+.icono-signo {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.click-hint {
+    font-size: 0.7rem;
+    font-family: 'IM Fell English SC';
+    margin-top: 20px;
+    opacity: 0.7;
+    border: 1px solid var(--oro);
+    padding: 2px 8px;
+    border-radius: 15px;
+}
+
+/* === DORSO DE LA CARTA (La predicción) === */
+.carta-dorso {
+    background-color: var(--pergamino);
+    color: var(--tinta);
+    transform: rotateY(180deg); /* Ya está girada para que no se vea */
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+}
+
+.carta-dorso p {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+        /* === TEST === */
+        .test-box {
+            background: #fff;
+            border: 4px double var(--tinta);
+            padding: 30px;
+        }
+        .pregunta {
+            font-weight: bold;
+            color: var(--sangre);
+            margin-top: 20px;
+            font-family: 'IM Fell English SC', serif;
+            font-size: 1.2rem;
+        }
+        .opciones { margin-left: 20px; list-style-type: none; }
+        .opciones li::before { content: "♦ "; color: var(--oro); }
+
+        .resultados {
+            background: var(--cuero);
+            color: var(--pergamino);
+            padding: 20px;
+            margin-top: 30px;
+            border: 2px solid var(--oro);
+        }
+
+        /* === PUBLICIDAD === */
+        .publicidad-falsa {
+            background: #222;
+            color: #f4e4bc;
+            padding: 20px;
+            text-align: center;
+            border: 5px ridge var(--oro);
+            margin-top: 20px;
+        }
+        .publicidad-falsa h4 { font-family: 'Cinzel Decorative'; color: var(--oro); font-size: 1.5rem; margin: 0;}
+        
+        /* === EDITORIAL === */
+        .editorial-box {
+            column-count: 2; /* Texto en columnas como periódico */
+            column-gap: 40px;
+            column-rule: 1px solid var(--tinta);
+            text-align: justify;
+        }
+        .drop-cap::first-letter {
+            font-family: 'Cinzel Decorative';
+            font-size: 3.5rem;
+            float: left;
+            margin-right: 10px;
+            line-height: 0.8;
+            color: var(--sangre);
+        }
+/* === EL CALDERO DE LAS BRUJAS === */
+.seccion-brujas {
+    background-color: #1a1a1a;
+    color: #5af542; /* Verde tóxico */
+    padding: 40px;
+    border: 5px double #2e1a0f;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto de humo verde de fondo */
+.seccion-brujas::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, transparent 20%, #000 90%);
+    pointer-events: none;
+}
+
+.caldero-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Botones de ingredientes */
+.ingrediente-btn {
+    background: #2e1a0f;
+    border: 1px solid #c5a059;
+    color: #f4e4bc;
+    padding: 10px 20px;
+    font-family: 'IM Fell English SC', serif;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 20px;
+}
+
+.ingrediente-btn:hover {
+    background: #5af542;
+    color: #000;
+    box-shadow: 0 0 15px #5af542;
+}
+
+/* El texto de la profecía */
+.profecia-box {
+    margin-top: 30px;
+    min-height: 80px;
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 1.5rem;
+    color: #5af542;
+    text-shadow: 0 0 5px #5af542;
+    animation: flotar 3s infinite ease-in-out;
+}
+
+@keyframes flotar {
+    0%, 100% { transform: translateY(0); opacity: 0.8; }
+    50% { transform: translateY(-5px); opacity: 1; }
+}
+
+/* Animación de burbujas (decorativo) */
+.burbuja {
+    color: #5af542;
+    font-size: 2rem;
+    margin: 10px;
+    display: inline-block;
+    animation: burbujeo 2s infinite;
+}
+
+@keyframes burbujeo {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+    </style>
+</head>
+<body>
+
+    <header class="portada">
+        <h1>SHAKESPEARE TODAY</h1>
+        <div class="subtitulo-portada">Amor, Ambición y Locura · Vol. IV</div>
+    </header>
+
+    <nav>
+        <a href="#editorial">Inicio</a>
+        <a href="#macbeth">Macbeth</a>
+        <a href="#romeo">Romeo & Julieta</a>
+        <a href="#lear">King Lear</a>
+        <a href="#horoscopo">Horóscopo</a>
+        <a href="#test">Test</a>
+        
+    </nav>
+
+    <div class="container">
+        <section id="editorial" style="border: none;">
+            <h2 class="seccion-titulo">🗞 Editorial: Cuando el drama es eterno</h2>
+            <div class="byline" style="text-align: center; margin-bottom: 20px;">Por Ariana, directora de Shakespeare Today</div>
+            
+            <div class="editorial-box">
+                <p class="drop-cap">
+                    Bienvenidos a esta edición especial dedicada a las tragedias más intensas del teatro clásico. En estas páginas van a encontrar amor que mata, ambición que corrompe y familias que se destruyen por dentro. ¿Exagerado? Tal vez. ¿Fascinante? Sin dudas.
+                </p>
+                <p>
+                    Macbeth nos enseña que el poder sin límites termina en paranoia. Romeo and Juliet nos recuerda que el amor sin libertad puede ser mortal. Y King Lear... bueno, si alguna vez pensaste que tu familia era complicada, esperá a conocer a Goneril y Regan.
+                </p>
+                <p>
+                    Esta revista no busca solo contar historias, sino hacerte sentir parte de ellas. Porque todos tenemos un poco de Shakespeare adentro: un Romeo que ama sin medida, una Lady Macbeth que sueña con más, o un Lear que solo quiere ser comprendido. Así que abrí estas páginas, leé tu horóscopo trágico, descubrí qué personaje sos, y preparate para una dosis de drama que ni Netflix podría superar.
+                </p>
+            </div>
+        </section>
+
+        <section id="macbeth">
+            <h2 class="seccion-titulo">🗡️ Macbeth: El Precio del Poder</h2>
+            
+            <h3 class="titular-noticia">“Rey asesinado en su propia casa: sospechan de Macbeth”</h3>
+            
+            <div class="entrevista">
+                <strong>🎙️ Entrevista Exclusiva con Lady Macbeth:</strong><br>
+                "Yo solo quería lo mejor para él... A veces un hombre necesita un empujón para alcanzar su destino. ¿Las manchas en mis manos? Oh, no es nada, solo un poco de vino tinto..."
+            </div>
+
+            <div class="frase-destacada">¡Macbeth ha asesinado el sueño!</div>
+
+            <figure class="marco-comic">
+                <img src="images/machbeth.jpg" alt="Macbeth comic">
+                
+            </figure>
+
+            <div class="publicidad-falsa">
+                <h4>🔮 Hechizos Fatídicos S.A.</h4>
+                <p>¿Querés ser rey? ¿Reina? ¿Dictador? Las Hermanas Fatídicas tienen el conjuro perfecto.</p>
+                <small>Garantía limitada. No incluye estabilidad mental.</small>
+            </div>
+        </section>
+        <section id="brujas" class="seccion-brujas">
+    <h2 class="seccion-titulo" style="color: #5af542; border-color: #5af542;">🧪 Las Voces del Fuego</h2>
+    
+    <p style="font-family: 'IM Fell English SC'; font-size: 1.2rem; margin-bottom: 20px;">
+        "En la salvaje parte vieron tres brujas sentadas alrededor del fuego...<br>
+        ¿Quieres escuchar las palabras de nuestras bocas o de nuestros maestros?"
+    </p>
+
+    <div class="caldero-container">
+        <button class="ingrediente-btn" onclick="invocar('saludo')">🧙‍♀️ Primera Bruja</button>
+        <button class="ingrediente-btn" onclick="invocar('futuro')">👑 Tercera Bruja</button>
+        <button class="ingrediente-btn" onclick="invocar('banquo')">👥 Profecía a Banquo</button>
+        <button class="ingrediente-btn" onclick="invocar('cabeza')">💀 Cabeza de Soldado</button>
+        <button class="ingrediente-btn" onclick="invocar('sangre')">🩸 Niño Sangriento</button>
+        <button class="ingrediente-btn" onclick="invocar('arbol')">🌲 Niño con Árbol</button>
+    </div>
+
+    <div class="profecia-box" id="resultado-caldero">
+        <span class="burbuja">°</span> El fuego arde... Elige tu destino <span class="burbuja">°</span>
+    </div>
+
+    <script>
+        function invocar(tipo) {
+            const texto = document.getElementById('resultado-caldero');
+            let mensaje = "";
+            let fuente = ""; // Para decir quién lo dice
+
+            // Frases extraídas LITERALMENTE de tu texto
+            if (tipo === 'saludo') {
+                fuente = "Segunda Bruja:";
+                mensaje = "Saludos, Macbeth, Lord de Cawdor.";
+            } 
+            else if (tipo === 'futuro') {
+                fuente = "Tercera Bruja:";
+                mensaje = "Saludos, Macbeth. Serás el rey.";
+            } 
+            else if (tipo === 'banquo') {
+                fuente = "A Banquo:";
+                mensaje = "No vas a ser el rey. Pero tu hijo y tu nieto sí lo serán.";
+            } 
+            else if (tipo === 'cabeza') {
+                fuente = "Primer Fantasma (Cabeza de soldado):";
+                mensaje = "¡Macbeth! Observa a Macduff. Míralo y protégete de él.";
+            } 
+            else if (tipo === 'sangre') {
+                fuente = "Segundo Fantasma (Niño sangriento):";
+                mensaje = "¡Sé valiente! No puedes ser herido por ningún hombre que haya nacido de una mujer.";
+            } 
+            else if (tipo === 'arbol') {
+                fuente = "Tercer Fantasma (Niño con corona y árbol):";
+                mensaje = "Tus enemigos nunca te vencerán mientras Birnam Wood se aleje a la villa Dunsinane.";
+            }
+
+            // Efecto de actualización de texto
+            texto.style.opacity = 0;
+            setTimeout(() => {
+                texto.innerHTML = `
+                    <div style="font-size: 1rem; color: #fff; font-family: 'IM Fell English SC';">${fuente}</div>
+                    <span class='burbuja'>°</span> "${mensaje}" <span class='burbuja'>°</span>
+                `;
+                texto.style.opacity = 1;
+            }, 300);
+        }
+    </script>
+</section>
+
+        <section id="romeo">
+            <h2 class="seccion-titulo">💔 Romeo & Juliet: Amor que Mata</h2>
+
+            <h3 class="titular-noticia">“El romance que terminó en tragedia: Capuletos y Montescos de luto”</h3>
+
+            <div class="entrevista">
+                <strong>🎙️ Julieta se confiesa:</strong><br>
+                "No podía vivir sin él. ¿Qué importa un apellido? Una rosa con otro nombre olería igual de dulce. Solo quería escapar de mis padres..."
+            </div>
+
+            <figure class="marco-comic">
+                <img src="images/ryj.webp" alt="Romeo comic">
+            </figure>
+
+            <div class="frase-destacada">Así muere el amor más puro.</div>
+
+            <div class="publicidad-falsa">
+                <h4>🧪 Pócimas Verona</h4>
+                <p>¿Querés dormir como Julieta o desaparecer como Romeo? ¡Probá nuestras fórmulas!</p>
+                <small>No apto para menores ni para corazones rotos.</small>
+            </div>
+        </section>
+
+
+        <section id="lear">
+            <h2 class="seccion-titulo">👑 King Lear: Traición Real</h2>
+
+            <h3 class="titular-noticia">“El Rey Lear abdica y sus hijas lo traicionan brutalmente”</h3>
+
+            <div class="entrevista">
+                <strong>🎙️ Cordelia rompe el silencio:</strong><br>
+                "No necesitaba decirlo, lo sentía. Mi amor pesaba más que mi lengua. Ahora veo la tormenta caer sobre mi padre y solo puedo llorar."
+            </div>
+
+            <figure class="marco-comic">
+                <img src="images/klear.jpg" alt="Lear comic">
+                <div class="caption">Fig 3. Lear gritándole a la tormenta en el páramo.</div>
+            </figure>
+
+            <div class="frase-destacada">¡Más lágrimas que palabras!</div>
+
+            <div class="publicidad-falsa">
+                <h4>👑 Coronas Lear</h4>
+                <p>¿Tenés hijas ambiciosas? ¿Sos un rey cansado? Regalá tu reino con estilo.</p>
+                <small>Incluye tormenta emocional gratis.</small>
+            </div>
+        </section>
+
+
+       <section id="horoscopo">
+    <h2 class="seccion-titulo">🔮 Tarot Trágico</h2>
+    <p style="text-align: center; font-style: italic; margin-bottom: 30px;">
+        Las estrellas no mienten, pero a veces sangran. <br>Haz clic en tu signo para revelar tu destino.
+    </p>
+    
+    <div class="horoscopo-grid">
+
+        <div class="carta-tarot" onclick="this.classList.toggle('girada')">
+            <div class="carta-inner">
+                <div class="carta-frente">
+                    <div class="icono-signo">♈</div>
+                    <h3>Aries</h3>
+                    <div class="click-hint">Ver Destino</div>
+                </div>
+                <div class="carta-dorso">
+                    <p><strong>La Daga Oculta</strong></p>
+                    <p>Tu impulso te llevará a actuar sin pensar. Cuidado con las dagas ocultas... como Macbeth.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="carta-tarot" onclick="this.classList.toggle('girada')">
+            <div class="carta-inner">
+                <div class="carta-frente">
+                    <div class="icono-signo">♉</div>
+                    <h3>Tauro</h3>
+                    <div class="click-hint">Ver Destino</div>
+                </div>
+                <div class="carta-dorso">
+                    <p><strong>El Rey Ciego</strong></p>
+                    <p>Tu lealtad será puesta a prueba. No confíes en promesas vacías ni adulaciones, como Lear.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="carta-tarot" onclick="this.classList.toggle('girada')">
+            <div class="carta-inner">
+                <div class="carta-frente">
+                    <div class="icono-signo">♊</div>
+                    <h3>Géminis</h3>
+                    <div class="click-hint">Ver Destino</div>
+                </div>
+                <div class="carta-dorso">
+                    <p><strong>Las Dos Caras</strong></p>
+                    <p>Dos caras, dos destinos. ¿Amas intensamente como Romeo o traicionas fríamente como Iago?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="carta-tarot" onclick="this.classList.toggle('girada')">
+            <div class="carta-inner">
+                <div class="carta-frente">
+                    <div class="icono-signo">♋</div>
+                    <h3>Cáncer</h3>
+                    <div class="click-hint">Ver Destino</div>
+                </div>
+                <div class="carta-dorso">
+                    <p><strong>El Veneno Dulce</strong></p>
+                    <p>Tu sensibilidad te hará sufrir por amor. Evitá los balcones altos y las botellas sin etiqueta.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="carta-tarot" onclick="this.classList.toggle('girada')">
+            <div class="carta-inner">
+                <div class="carta-frente">
+                    <div class="icono-signo">♌</div>
+                    <h3>Leo</h3>
+                    <div class="click-hint">Ver Destino</div>
+                </div>
+                <div class="carta-dorso">
+                    <p><strong>La Corona Pesada</strong></p>
+                    <p>Tu orgullo puede cegarte. No entregues tu corona tan fácilmente o terminarás en la tormenta.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="carta-tarot" onclick="this.classList.toggle('girada')">
+            <div class="carta-inner">
+                <div class="carta-frente">
+                    <div class="icono-signo">♍</div>
+                    <h3>Virgo</h3>
+                    <div class="click-hint">Ver Destino</div>
+                </div>
+                <div class="carta-dorso">
+                    <p><strong>El Caos</strong></p>
+                    <p>Tu necesidad de orden será destruida por la locura. Recordá: no todo se puede controlar, Lady Macbeth.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="carta-tarot" onclick="this.classList.toggle('girada')">
+            <div class="carta-inner">
+                <div class="carta-frente">
+                    <div class="icono-signo">♎</div>
+                    <h3>Libra</h3>
+                    <div class="click-hint">Ver Destino</div>
+                </div>
+                <div class="carta-dorso">
+                    <p><strong>El Juicio</strong></p>
+                    <p>Buscás equilibrio, pero el amor prohibido te desequilibra. ¿Elegís familia o pasión mortal?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="carta-tarot" onclick="this.classList.toggle('girada')">
+            <div class="carta-inner">
+                <div class="carta-frente">
+                    <div class="icono-signo">♏</div>
+                    <h3>Escorpio</h3>
+                    <div class="click-hint">Ver Destino</div>
+                </div>
+                <div class="carta-dorso">
+                    <p><strong>La Venganza</strong></p>
+                    <p>Tu intensidad es peligrosa. Pero cuidado: la sangre llama más sangre. No caves dos tumbas.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="carta-tarot" onclick="this.classList.toggle('girada')">
+            <div class="carta-inner">
+                <div class="carta-frente">
+                    <div class="icono-signo">♐</div>
+                    <h3>Sagitario</h3>
+                    <div class="click-hint">Ver Destino</div>
+                </div>
+                <div class="carta-dorso">
+                    <p><strong>El Exilio</strong></p>
+                    <p>Tu deseo de aventura puede terminar mal. Cuidado con perder el rumbo en el bosque de Birnam.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="carta-tarot" onclick="this.classList.toggle('girada')">
+            <div class="carta-inner">
+                <div class="carta-frente">
+                    <div class="icono-signo">♑</div>
+                    <h3>Capri</h3>
+                    <div class="click-hint">Ver Destino</div>
+                </div>
+                <div class="carta-dorso">
+                    <p><strong>La Ambición</strong></p>
+                    <p>Escalarás alto, muy alto. Pero la caída será dura. ¿Vale tu alma una corona escocesa?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="carta-tarot" onclick="this.classList.toggle('girada')">
+            <div class="carta-inner">
+                <div class="carta-frente">
+                    <div class="icono-signo">♒</div>
+                    <h3>Acuario</h3>
+                    <div class="click-hint">Ver Destino</div>
+                </div>
+                <div class="carta-dorso">
+                    <p><strong>El Incomprendido</strong></p>
+                    <p>Tu visión es única, pero solitaria. ¿Serás como Cordelia, fiel pero rechazada por los necios?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="carta-tarot" onclick="this.classList.toggle('girada')">
+            <div class="carta-inner">
+                <div class="carta-frente">
+                    <div class="icono-signo">♓</div>
+                    <h3>Piscis</h3>
+                    <div class="click-hint">Ver Destino</div>
+                </div>
+                <div class="carta-dorso">
+                    <p><strong>El Sueño Eterno</strong></p>
+                    <p>Tu corazón sueña con finales felices. Pero en Verona o Dinamarca, los sueños suelen ser pesadillas.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+        <section id="test">
+            <h2 class="seccion-titulo">📜 Test: ¿Qué personaje sos?</h2>
+            <div class="test-box">
+                <div class="pregunta">1. ¿Qué harías por amor?</div>
+                <ul class="opciones">
+                    <li>A) Lo arriesgaría todo, incluso mi vida.</li>
+                    <li>B) Lo demostraría con acciones, no palabras.</li>
+                    <li>C) El amor es secundario, primero está el poder.</li>
+                </ul>
+
+                <div class="pregunta">2. ¿Cómo reaccionás ante una traición?</div>
+                <ul class="opciones">
+                    <li>A) Me rompo por dentro, pero sigo amando.</li>
+                    <li>B) Me alejo, aunque duela.</li>
+                    <li>C) Me vengo sin dudar.</li>
+                </ul>
+
+                <div class="pregunta">3. ¿Qué valorás más?</div>
+                <ul class="opciones">
+                    <li>A) El amor verdadero.</li>
+                    <li>B) La honestidad.</li>
+                    <li>C) El éxito y el reconocimiento.</li>
+                </ul>
+                
+                <div class="pregunta">4. ¿Qué harías si te ofrecieran el trono?</div>
+                <ul class="opciones">
+                    <li>A) Lo rechazaría si implica dañar a alguien.</li>
+                    <li>B) Lo pensaría mucho antes de decidir.</li>
+                    <li>C) Lo aceptaría sin importar las consecuencias.</li>
+                </ul>
+
+                <div class="resultados">
+                    <h3 style="text-align: center; font-family: 'Cinzel Decorative'; color: var(--oro);">🧾 RESULTADOS</h3>
+                    <p><strong>Mayoría A (Romeo o Julieta):</strong> Vivís por amor, aunque eso te haga sufrir.</p>
+                    <p><strong>Mayoría B (Cordelia):</strong> Tenés un corazón noble y no necesitas demostrarlo con palabras.</p>
+                    <p><strong>Mayoría C (Macbeth):</strong> Tu ambición te impulsa, pero cuidado con lo que estás dispuesto a hacer.</p>
+                </div>
+            </div>
+        </section>
+
+
+        
+    <div class="separador">~ ❦ ~</div>
+
+        <section id="consultorio">
+            <h2 class="seccion-titulo">🃏 El Consultorio del Bufón</h2>
+            <div class="byline">Consejos sabios para nobles desesperados</div>
+
+            <div class="box-tkm" style="background: #fff; border: 1px solid var(--tinta);">
+                <p style="font-weight: bold; font-style: italic;">"Querido Bufón: Mi marido empezó a hablar solo y ve fantasmas en la cena. Dice que será rey, pero me da miedo su inestabilidad. ¿Qué hago? — Lady M."</p>
+                
+                <hr style="border: 0; border-top: 1px dashed var(--oro); margin: 15px 0;">
+                
+                <p><strong>El Bufón responde:</strong><br>
+                Querida Lady, la ambición es un plato que se sirve frío, pero tu marido parece que ya se quemó. Si ve fantasmas antes de tener la corona, imaginate después. Mi consejo: escondé las dagas y lavate bien las manos. Va a ser una noche larga.</p>
+            </div>
+
+            <div class="box-tkm" style="background: #fff; border: 1px solid var(--tinta);">
+                <p style="font-weight: bold; font-style: italic;">"Querido Bufón: Mis hijas dicen que me quieren mucho, pero solo cuando les doy tierras. La menor no dice nada. ¿A cuál le creo? — Lear, el Rey."</p>
+                
+                <hr style="border: 0; border-top: 1px dashed var(--oro); margin: 15px 0;">
+                
+                <p><strong>El Bufón responde:</strong><br>
+                Ay, nuncle. El perro ladra cuando quiere hueso. La que calla es la única que no miente. Comprate un abrigo, porque se viene una tormenta y te vas a quedar sin techo.</p>
+            </div>
+        </section>
+
+        <section id="clasificados">
+            <h2 class="seccion-titulo">📰 Clasificados del Reino</h2>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
+                
+                <div style="background: #222; color: #fff; padding: 15px; width: 250px; border: 3px double var(--oro); text-align: center;">
+                    <h4 style="font-family: 'Cinzel', serif; color: var(--oro); margin: 0;">SE BUSCA REY</h4>
+                    <p style="font-size: 0.9rem;">Escocia busca monarca estable. <br>Requisito: No asesinar a los invitados.<br>Interesados ir a Dunsinane.</p>
+                </div>
+
+                <div style="background: var(--pergamino); border: 2px solid var(--cuero); padding: 15px; width: 250px; text-align: center;">
+                    <h4 style="font-family: 'Cinzel', serif; color: var(--sangre); margin: 0;">VENDO PÓCIMA</h4>
+                    <p style="font-size: 0.9rem;">Duerme 42 horas exactas.<br>Ideal para fingir tu muerte y escapar de bodas arregladas.<br><strong>Farmacia Mantua.</strong></p>
+                </div>
+
+                <div style="background: var(--pergamino); border: 2px solid var(--cuero); padding: 15px; width: 250px; text-align: center;">
+                    <h4 style="font-family: 'Cinzel', serif; color: var(--tinta); margin: 0;">PERDIDO</h4>
+                    <p style="font-size: 0.9rem;">Ojo de rey.<br>Se perdió durante una discusión con Cornwall.<br>Si lo encuentra, no lo devuelva, ya no sirve.</p>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <footer style="text-align: center; padding: 20px; background: var(--cuero); color: var(--oro); font-family: 'IM Fell English SC';">
+        Impreso en el Globe Theatre · 2025 · Edición Limitada
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shakespeare: Selecciona una Historia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lato:wght@300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-color: #fff;
+            --hover-red: #8a0303;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Lato', sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            color: var(--text-color);
+            font-size: 3rem;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-align: center;
+        }
+
+        .menu-container {
+            display: flex;
+            gap: 20px;
+            width: 90%;
+            max-width: 1200px;
+            height: 60vh;
+        }
+
+        .card {
+            flex: 1;
+            position: relative;
+            background-position: center;
+            background-size: cover;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            overflow: hidden;
+            text-decoration: none; /* Quita el subrayado del link */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Imágenes de Fondo para cada historia */
+        .macbeth-card {
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/portadamac.avif'); 
+        }
+        .lear-card {
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/kinglearportada.jpg');
+        }
+        .romeo-card {
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/balcon.jpg');
+        }
+
+        /* Efecto al pasar el mouse */
+        .card:hover {
+            flex: 2; /* Se hace más ancha */
+            border-color: var(--hover-red);
+            filter: brightness(1.2);
+        }
+
+        .card-content {
+            color: white;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .card h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            text-transform: uppercase;
+            border-bottom: 2px solid transparent;
+            transition: 0.3s;
+        }
+
+        .card:hover h2 {
+            border-bottom: 2px solid var(--hover-red);
+            font-size: 2.5rem;
+        }
+
+        .card p {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Three Great Plays Of Shakespeare</h1>
+
+    <div class="menu-container">
+
+        <a href="romeo.html" class="card romeo-card">
+            <div class="card-content">
+                <h2>Romeo and Juliet</h2>
+            </div>
+        </a>
+        
+        <a href="macbeth.html" class="card macbeth-card">
+            <div class="card-content">
+                <h2>Macbeth</h2>
+            </div>
+        </a>
+
+        <a href="kinglear.html" class="card lear-card">
+            <div class="card-content">
+                <h2>King Lear</h2>
+            </div>
+        </a>
+
+    </div>
+
+</body>
+</html>

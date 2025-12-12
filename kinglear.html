@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>King Lear: La Tormenta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Rye&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --storm-bg: #1a1a1d;
+            --stone-text: #95a5a6;
+            --lightning: #f5f6fa;
+            --blood: #630a0a;
+            --gold-faded: #7f703e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--storm-bg);
+            color: var(--stone-text);
+            font-family: 'Lato', sans-serif;
+            overflow-x: hidden;
+            transition: background 0.1s;
+        }
+
+        h1, h2, h3 { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 2px; }
+        .rust-font { font-family: 'Rye', serif; font-size: 2.5rem; color: var(--gold-faded); }
+
+        /* --- BOTÓN VOLVER --- */
+        .back-btn {
+            position: fixed; top: 20px; left: 20px;
+            color: #fff; text-decoration: none;
+            font-family: 'Cinzel', serif; border: 1px solid #555;
+            padding: 10px 20px; z-index: 1000; background: rgba(0,0,0,0.8);
+            transition: 0.3s;
+        }
+        .back-btn:hover { border-color: #fff; background: #333; }
+
+        /* --- SECCIONES --- */
+        section {
+            min-height: 90vh;
+            padding: 80px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+
+        /* 1. PORTADA */
+        #hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('images/knglr.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        #hero h1 { font-size: 4rem; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.2); }
+
+        /* 2. LA DIVISIÓN (INTERACTIVO) */
+        .daughters-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        .daughter-card {
+            background: #222;
+            width: 300px;
+            padding: 30px;
+            border: 1px solid #444;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+        }
+        .daughter-card:hover { border-color: var(--gold-faded); transform: translateY(-5px); }
+        .reveal-text { display: none; margin-top: 20px; border-top: 1px solid #555; padding-top: 10px; color: #fff; }
+
+        /* 3. LA TRAMA PARALELA */
+        .split-plot {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 1000px;
+            flex-wrap: wrap;
+        }
+        .plot-box {
+            width: 45%;
+            padding: 20px;
+            border-left: 2px solid var(--blood);
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        /* 4. LA TORMENTA (EFECTO) */
+        #storm-section {
+            background: #000;
+            position: relative;
+            overflow: hidden;
+        }
+        .storm-btn {
+            background: transparent;
+            color: var(--lightning);
+            font-family: 'Rye', serif;
+            font-size: 1.5rem;
+            padding: 15px 40px;
+            border: 2px solid var(--lightning);
+            cursor: pointer;
+            margin-top: 30px;
+            transition: 0.2s;
+        }
+        .storm-btn:hover { background: var(--lightning); color: #000; box-shadow: 0 0 30px var(--lightning); }
+        
+        /* Clase para la animación de sacudida */
+        .shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both infinite; }
+        @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
+
+        /* 5. EL FINAL */
+        .final-box {
+            max-width: 800px;
+            background: rgba(255,255,255,0.05);
+            padding: 40px;
+            border: 1px solid #333;
+        }
+
+        /* ÍCONOS */
+        /* REEMPLAZA EL CSS EXISTENTE DE .icon-big POR ESTO: */
+.icon-big {
+    width: 80px;          /* Ancho fijo */
+    height: 80px;         /* Alto fijo */
+    object-fit: contain;  /* Asegura que la imagen entera se vea sin estirarse */
+    display: center;       /* Hace que quede en su propia línea */
+    margin-bottom: 15px;  /* Espacio debajo de la imagen */
+    /* Opcional: un filtro para que se vean un poco más apagadas/antiguas */
+    filter: sepia(0.3) contrast(0.9);
+}
+
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-btn">← Menú Principal</a>
+
+    <section id="hero">
+        <h1 class="rust-font" style="color: white; font-size: 5rem;">King Lear</h1>
+        <p style="font-size: 1.5rem; letter-spacing: 3px; margin-top: 10px;">"Soy un hombre más pecado contra que pecador"</p>
+        <p style="margin-top: 20px; opacity: 0.6;">(Vejez • Locura • Ingratitud)</p>
+    </section>
+
+    <section id="division">
+        <h2>El Juicio de Amor</h2>
+        <p style="max-width: 700px;">El Rey, cansado, decide dividir su reino. Haz clic en las hijas para ver quién miente y quién dice la verdad.</p>
+        
+        <div class="daughters-container">
+            <div class="daughter-card" onclick="reveal(this)">
+                <img src="images/3.png" class="icon-big" alt="Corona">
+                
+                <h3>Goneril</h3>
+                <p style="font-style: italic; color: #666;">La Mayor</p>
+                <div class="reveal-text">
+                    <strong>DISCURSO FALSO:</strong><br>
+                    "Te amo más de lo que las palabras pueden decir."<br>
+                    <span style="color: var(--blood);">Realidad: Lo traiciona y le quita sus caballeros.</span>
+                </div>
+            </div>
+
+            <div class="daughter-card" onclick="reveal(this)">
+                <img src="images/4.png" class="icon-big" alt="Serpiente">
+
+                <h3>Regan</h3>
+                <p style="font-style: italic; color: #666;">La Segunda</p>
+                <div class="reveal-text">
+                    <strong>ADULACIÓN VACÍA:</strong><br>
+                    "Soy del mismo metal que mi hermana."<br>
+                    <span style="color: var(--blood);">Realidad: Se une a Goneril para echar a su padre a la tormenta.</span>
+                </div>
+            </div>
+
+            <div class="daughter-card" onclick="reveal(this)">
+                <img src="images/Cordelia.png" class="icon-big" alt="Corazón">
+
+                <h3>Cordelia</h3>
+                <p style="font-style: italic; color: #666;">La Menor</p>
+                <div class="reveal-text">
+                    <strong>LA VERDAD:</strong><br>
+                    "No puedo expresar mi corazón en mi boca."<br>
+                    <span style="color: var(--gold-faded);">Consecuencia: Desheredada injustamente, pero es la única que lo ama de verdad.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="parallels">
+        <h2>Las Dos Familias Caídas</h2>
+        <p style="margin-bottom: 40px;">Mientras Lear pierde la razón, Gloucester pierde algo más físico.</p>
+        
+        <div class="split-plot">
+            <div class="plot-box">
+                <h3 style="color: var(--gold-faded);">El Rey Lear</h3>
+                <p>Traicionado por Goneril y Regan. Humillado y sin techo, sale a la tormenta gritando contra la injusticia.</p>
+            </div>
+            <div class="plot-box">
+                <h3 style="color: var(--gold-faded);">Conde Gloucester</h3>
+                <p>Engañado por su hijo bastardo, <strong>Edmund</strong>. Cree que su hijo bueno, Edgar, quiere matarlo. Por su error, Edmund lo entrega y <span style="color: var(--blood);">le arrancan los ojos.</span></p>
+            </div>
+        </div>
+        <p style="font-style: italic; opacity: 0.6;">"El loco guía al ciego." (Lear y Gloucester)</p>
+    </section>
+
+    <section id="storm-section">
+        <h2 style="color: white; z-index: 2;">La Locura en el Páramo</h2>
+        <p id="storm-text" style="max-width: 600px; z-index: 2; margin-bottom: 20px;">
+            Lear, rechazado, desafía a los elementos. Su mente se quiebra bajo el peso de la ingratitud.
+        </p>
+        
+        <button class="storm-btn" onclick="triggerStorm()">DESATAR LA TORMENTA</button>
+
+        <div id="lightning-flash" style="position: absolute; top:0; left:0; width:100%; height:100%; background: white; opacity: 0; pointer-events: none;"></div>
+    </section>
+
+    <section id="ending">
+        <div class="final-box">
+            <h2>El Amargo Final</h2>
+            <div style="text-align: left; margin-top: 30px; line-height: 1.8;">
+                <p><strong>El Reencuentro:</strong> En Dover, Cordelia encuentra a su padre loco, coronado de flores. Con ternura, lo cura y Lear recupera la razón, pidiendo perdón.</p>
+                <hr style="border: 0; border-top: 1px solid #444; margin: 20px 0;">
+                <p><strong>La Tragedia Final (Lo que sigue):</strong><br>
+                A pesar del reencuentro, el ejército francés pierde. Edmund ordena matar a Cordelia. <br>
+                <span style="color: var(--gold-faded); font-size: 1.2rem; display: block; margin: 15px 0; text-align: center; font-family: 'Rye', serif;">
+                    Lear entra cargando el cuerpo muerto de Cordelia.
+                </span>
+                El corazón del anciano rey no resiste el dolor y muere abrazado a ella. Gloucester también muere de emoción (entre dolor y alegría) al saber que Edgar lo salvó.</p>
+            </div>
+        </div>
+    </section>
+    <section id="desenlace-section" style="background-color: #1a0505; /* Un negro con tinte rojo oscuro */ border-top: 1px solid #8a0303; padding: 80px 20px;">
+        
+        <h2 style="color: #ccc; text-align: center; margin-bottom: 50px; letter-spacing: 2px;">El Asedio a Dunsinane</h2>
+
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; max-width: 1100px; margin: 0 auto;">
+
+            <div style="flex: 1; min-width: 300px;">
+                
+                <div style="position: relative; height: 300px; overflow: hidden; border: 2px solid #333; border-radius: 5px; margin-bottom: 25px;">
+                    <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=800&auto=format&fit=crop" 
+                         alt="Bosque de Birnam" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.7; filter: contrast(1.2);">
+                    
+                    <div style="position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(transparent, #000); padding: 20px;">
+                        <h3 style="color: var(--gold); margin: 0; font-size: 1.5rem;">Birnam Wood se mueve</h3>
+                    </div>
+                </div>
+
+                <p style="font-size: 1.1rem; line-height: 1.8; color: #bbb;">
+                    El desenlace llega cuando los enemigos de Macbeth, liderados por Malcolm y Macduff, avanzan hacia Dunsinane. Para ocultarse, <strong style="color: #fff;">los soldados tomaron ramas del bosque de Birnam</strong>, haciendo que parezca que el bosque “se mueve”, cumpliendo la profecía.
+                </p>
+            </div>
+
+            <div style="flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 30px;">
+
+                <div style="background: rgba(255,255,255,0.05); padding: 30px; border-left: 4px solid #555;">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span style="font-size: 2rem; margin-right: 15px;">🕯️</span> <h3 style="color: #ccc; margin: 0;">El Fin de la Reina</h3>
+                    </div>
+                    <p style="font-size: 1.1rem; line-height: 1.8; color: #aaa;">
+                        Al mismo tiempo, Lady Macbeth, <span style="color: var(--blood-red);">consumida por la culpa</span>, pierde la razón y muere.
+                    </p>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.05); padding: 30px; border-left: 4px solid var(--gold);">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span style="font-size: 2rem; margin-right: 15px;">⚔️</span> <h3 style="color: var(--gold); margin: 0;">La Última Resistencia</h3>
+                    </div>
+                    <p style="font-size: 1.1rem; line-height: 1.8; color: #aaa;">
+                        Macbeth, aunque devastado, decide luchar hasta el final.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <footer style="padding: 30px; border-top: 1px solid #333; font-size: 0.8rem; color: #555;">
+        RESUMEN BASADO EN EL TEXTO ORIGINAL • LA TRAGEDIA DEL ERROR Y LA REDENCIÓN TARDÍA
+    </footer>
+
+    <script>
+        // FUNCIÓN 1: REVELAR HIJAS
+        function reveal(card) {
+            const text = card.querySelector('.reveal-text');
+            // Cierra otros si quieres (opcional), aquí solo mostramos el actual
+            if (text.style.display === 'block') {
+                text.style.display = 'none';
+            } else {
+                text.style.display = 'block';
+            }
+        }
+
+        // FUNCIÓN 2: LA TORMENTA
+        function triggerStorm() {
+            const body = document.body;
+            const flash = document.getElementById('lightning-flash');
+            const title = document.querySelector('#storm-section h2');
+            const text = document.getElementById('storm-text');
+
+            // Audio opcional (si quisieras), aquí hacemos efecto visual
+            
+            // 1. Oscuridad total
+            body.style.backgroundColor = '#000';
+
+            // 2. Temblores (Shake)
+            title.classList.add('shake');
+            text.classList.add('shake');
+
+            // 3. Relámpagos (Flashes rápidos)
+            let flashCount = 0;
+            const interval = setInterval(() => {
+                flash.style.opacity = Math.random() > 0.5 ? '0.8' : '0'; // Parpadeo aleatorio
+                flashCount++;
+                
+                if (flashCount > 10) { // Dura un poco
+                    clearInterval(interval);
+                    flash.style.opacity = '0';
+                    title.classList.remove('shake');
+                    text.classList.remove('shake');
+                    body.style.backgroundColor = '#1a1a1d'; // Volver al color original
+                }
+            }, 100);
+        }
+    </script>
+
+</body>
+</html>

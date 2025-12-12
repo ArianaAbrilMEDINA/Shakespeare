@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macbeth</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CONFIGURACIÓN DE REVISTA --- */
+        :root {
+            --bg-dark: #0a0a0a;
+            --paper: #f4f1ea;
+            --blood-red: #8a0303;
+            --gold: #d4af37;
+            --text-main: #e0e0e0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Lato', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            border-bottom: 2px solid var(--blood-red);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            display: inline-block;
+        }
+
+        /* --- EFECTOS DE ANIMACIÓN (SCROLL) --- */
+        .hidden {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+        }
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- PORTADA --- */
+        #cover {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('images/fondomac.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            border: 20px solid #111;
+            text-align: center;
+            position: relative;
+        }
+
+        .magazine-meta {
+            position: absolute;
+            top: 40px;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 3px;
+            color: var(--gold);
+            border-top: 1px solid var(--gold);
+            border-bottom: 1px solid var(--gold);
+            padding: 5px 20px;
+        }
+
+        .main-title {
+            font-size: 6rem;
+            line-height: 1;
+            color: #fff;
+            text-shadow: 4px 4px var(--blood-red);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-style: italic;
+            color: #ccc;
+        }
+
+        /* --- LAYOUT EDITORIAL --- */
+        section {
+            padding: 80px 20px;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .editorial-grid {
+    display: grid;
+    /* Esto fuerza 3 columnas iguales en una sola fila */
+    grid-template-columns: 1fr 1fr 1fr 1fr; 
+    gap: 20px; /* Reduje un poco el espacio para que entren mejor */
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto; /* Para asegurar que esté centrado */
+}
+
+        .char-column {
+            background: #111;
+            padding: 30px;
+            border-left: 1px solid var(--blood-red);
+            transition: 0.3s;
+        }
+        .char-column:hover { background: #1a1a1a; }
+        
+        .drop-cap {
+            float: left;
+            font-size: 4rem;
+            line-height: 3rem;
+            padding-top: 4px;
+            padding-right: 8px;
+            padding-left: 3px;
+            color: var(--blood-red);
+            font-family: 'Cinzel', serif;
+        }
+
+        /* --- QUOTE GIGANTE --- */
+        .pull-quote-section {
+            background: var(--paper);
+            color: #111;
+            width: 100%;
+            text-align: center;
+        }
+        .pull-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: bold;
+            font-style: italic;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .author-ref {
+            margin-top: 20px;
+            font-family: 'Lato', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--blood-red);
+        }
+
+        /* --- INTERACTIVO: FLIP CARDS --- */
+        .card-container {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            perspective: 1000px;
+            margin-top: 40px;
+        }
+
+        .flip-card {
+            background-color: transparent;
+            width: 300px;
+            height: 400px; /* Un poco más altas para el texto */
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+            border: 2px solid #333;
+        }
+
+        .flip-card-front { background-color: #111; }
+        .flip-card-back {
+            background-color: var(--blood-red);
+            color: white;
+            transform: rotateY(180deg);
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+        }
+
+        /* Busca .icon-large y reemplázalo por esto: */
+.icon-large {
+    width: 80px;  /* Tamaño similar a los emojis grandes */
+    height: 80px;
+    object-fit: contain; /* Para que la imagen no se deforme */
+    margin-bottom: 20px;
+    display: block;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3)); /* Un brillo fantasmal opcional */
+}
+        .click-hint { font-size: 0.8rem; margin-top: 20px; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; animation: pulse 2s infinite;}
+
+        @keyframes pulse { 0% {opacity: 0.5;} 50% {opacity: 1;} 100% {opacity: 0.5;} }
+
+        /* --- FINAL --- */
+        .reveal-box {
+            border: 4px double var(--gold);
+            padding: 50px;
+            max-width: 800px;
+            text-align: center;
+            background: rgba(0,0,0,0.5);
+        }
+
+    </style>
+</head>
+<body>
+
+    <section id="cover">
+        <div class="magazine-meta">The King of Scotland</div>
+        <h1 class="main-title hidden">MACBETH</h1>
+        <p class="subtitle hidden">Duncan's greed</p>
+        <div style="margin-top: 50px;" class="hidden">
+            <span style="font-size: 2rem;">↓</span>
+        </div>
+    </section>
+
+    <section id="intro">
+        <h2 class="hidden">The Characters</h2>
+        <div class="editorial-grid hidden">
+    <article class="char-column">
+        <h3>Macbeth</h3>
+        <p><span class="drop-cap">H</span>e is a strong man, with an imposing bearing and a determined gaze. He acts bravely in battle, but his attitude changes: he becomes ambitious, impulsive, and increasingly paranoid</p>
+    </article>
+
+    <article class="char-column">
+        <h3>Lady Macbeth</h3>
+        <p><span class="drop-cap">S</span>he has an elegant and firm presence, with an intense gaze. She is domineering, cold, and determined, though she later becomes fragile and consumed by guilt.</p>
+    </article>
+
+    <article class="char-column">
+        <h3>Banquo</h3>
+        <p><span class="drop-cap">H</span>e is a robust and serious soldier, with a firm expression. He is prudent, loyal, and thoughtful, remaining upright even in the face of ambition.</p>
+    </article>
+
+    <article class="char-column">
+        <h3>The witches</h3>
+        <p><span class="drop-cap">T</span>hey have a strange appearance: pale skin, messy hair, and beards. They are mysterious, unsettling, and manipulative, always speaking in riddles.</p>
+    </article>
+</div>
+
+    </section>
+    <section id="the-crime" style="background-color: #050505; border-top: 1px solid #333;">
+        
+        <div style="max-width: 900px; text-align: center; position: relative;">
+            
+            <h2 style="color: #fff; margin-bottom: 30px;">The desire for power</h2>
+            
+            <div style="background: rgba(255,255,255,0.05); padding: 40px; border-left: 4px solid var(--blood-red); text-align: left; margin-bottom: 40px;">
+                <p style="font-size: 1.2rem; line-height: 1.8; color: #ccc;">
+                    <span class="drop-cap" style="font-size: 3rem; color: #fff;">W</span>hen the first part of the prophecy comes true, Macbeth begins to feel an ambition he had never recognized before. 
+                   <br> <strong style="color: #fff;">Lady Macbeth</strong>  wants the prophecy to come true by murdering King Duncan to gain more power.
+                </p>
+                
+            </div>
+
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; align-items: center;">
+    
+    <div style="width: 300px; text-align: right; border-right: 1px solid #333; padding-right: 20px;">
+        <h3 style="color: var(--gold); font-size: 1.5rem;">The Voice of Conscience</h3>
+        <p style="color: #888; margin-top: 10px;">
+            "<i>'What are you saying?'</i> she asked. <br>
+            <i>'Why are you so afraid? <br>You want to be king.<br> Are you afraid to kill him?'</i>"
+        </p>
+    </div>
+
+    <div class="dagger-container" onclick="stabEffect(this)">
+        <img id="dagger-img" src="images/rey.png" alt="Daga" style="width: 80px;  transition: 0.2s;">
+        <p style="font-size: 0.8rem; margin-top: 10px; color: var(--blood-red); text-transform: uppercase;">Macbeth, click to commit the crime</p>
+    </div>
+
+</div>
+
+        </div>
+    </section>
+
+    <style>
+        .dagger-container {
+            flex: 0 0 190px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .dagger-container:hover {
+            transform: scale(1.1);
+        }
+        /* Animación de ataque */
+        .stab-action {
+            animation: stab 0.5s ease-in-out;
+        }
+        @keyframes stab {
+            0% { transform: rotate(0deg) translateY(0); }
+            50% { transform: rotate(45deg) translateY(50px); }
+            100% { transform: rotate(0deg) translateY(0); }
+        }
+    </style>
+
+   <script>
+        function stabEffect(element) {
+            // 1. Seleccionamos la imagen
+            const img = document.getElementById('dagger-img');
+            
+            // --- CONFIGURACIÓN ---
+            const originalImage = 'images/rey.png';
+            const bloodyImage = 'images/lapida.png'; // Tu segunda imagen
+            
+            // TAMAÑOS
+            const originalSize = '80px';  // El tamaño normal
+            const bigSize = '180px';      // El tamaño GRANDE para la segunda imagen
+            // ---------------------
+
+            // 2. Añadir clase de animación
+            img.classList.add('stab-action');
+
+            // 3. CAMBIOS (Imagen, Filtro y TAMAÑO)
+            img.src = bloodyImage;
+            img.style.filter = 'none'; 
+            
+            // --- AQUÍ AGRANDAMOS LA IMAGEN ---
+            img.style.width = bigSize; 
+            // ---------------------------------
+            
+            // 4. RESTAURAR (Después de 500ms)
+            setTimeout(() => {
+                img.classList.remove('stab-action');
+                img.src = originalImage;
+                
+                // --- AQUÍ VOLVEMOS AL TAMAÑO NORMAL ---
+                img.style.width = originalSize;
+                // --------------------------------------
+            }, 3000);
+        }
+    </script>
+
+    <section class="pull-quote-section hidden">
+        <div class="pull-quote">
+            "‘I cannot go into that room and see the king's body again’ Macbeth said. ‘I am afraid.’"
+        </div>
+        <div class="author-ref">
+            Madness and Guilt
+        </div>
+        <p style="margin-top: 30px; font-size: 1.2rem; max-width: 700px; margin-left: auto; margin-right: auto; font-style: italic;">
+            "My hands! All the water in the oceans will not clean the blood from these hands!"
+        </p>
+    </section>
+    <section id="paranoia-section" style="background-color: #0a0a0a; border-top: 1px solid #333; padding: 60px 20px;">
+        
+        <h2 style="color: #ccc; margin-bottom: 40px;">The beginning of madness</h2>
+
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 50px; max-width: 1100px;">
+
+                <div style="background: #111; padding: 15px; border-left: 3px solid var(--gold); margin-top: 20px;">
+                    <p style=" color: var(--gold); font-size: 0.9rem;">
+                        "Did you hear anything? Did you speak? I thought I heard a voice. 
+                        <br><i>'Macbeth has murdered sleep,'</i> it said. <i>'He will never sleep again.'</i>"
+                        <br>
+                        "I heard nothing," Lady Macbeth said. 
+                        <br> "You imagined it. Now, get some water and wash the blood from your hands."
+                    </p>
+                </div>
+            </div>
+
+            <div style="flex: 1; min-width: 300px; position: relative; text-align: center;">
+                
+                <div id="banquet-scene" style="position: relative; width: 100%; height: 350px; background: #000; border: 4px double #333; overflow: hidden; border-radius: 5px;">
+                    
+                    <img src="images/salon.avif" 
+                         style="width: 100%; height: 100%; object-fit: cover; opacity: 0.4;" alt="Salón">
+                    
+                    <img id="ghost-img" src="images/banquo.png" 
+                         style="position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); width: 600px; opacity: 0; transition: opacity 1s; filter: drop-shadow(0 0 10px red);" alt="Fantasma">
+                    
+                </div>
+
+                <button onclick="toggleGhost()" style="margin-top: 20px; background: transparent; color: var(--blood-red); border: 1px solid var(--blood-red); padding: 10px 20px; cursor: pointer; font-family: 'Cinzel', serif; letter-spacing: 1px; transition: 0.3s;">
+                    👁️ Macbeth`s Perspective
+                </button>
+
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        function toggleGhost() {
+            const ghost = document.getElementById('ghost-img');
+            const btn = document.querySelector('button[onclick="toggleGhost()"]');
+            
+            if (ghost.style.opacity === '0') {
+                ghost.style.opacity = '0.8';
+                btn.innerHTML = '👁️ Guest Perspective';
+                btn.style.color = '#fff';
+                btn.style.borderColor = '#fff';
+            } else {
+                ghost.style.opacity = '0';
+                btn.innerHTML = '👁️ Macbeth`s Perspective';
+                btn.style.color = '#8a0303'; // var(--blood-red)
+                btn.style.borderColor = '#8a0303';
+            }
+        }
+    </script>
+    <section id="interactive-prophecy">
+        <h2 class="hidden">The prophecies of the witches</h2>
+        <p class="hidden" style="margin-bottom: 20px;">Let's find out what they said</p>
+        
+        <div class="card-container hidden">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="images/escudo.png" class="icon-large" alt="Casco">
+                        
+                        <h3>Warning</h3>
+                        <p class="click-hint">Click to reveal</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>“Macbeth! Macbeth! Watch Macduff. Watch him and protect yourself from him.”</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="images/Diseño sin título.png" class="icon-large" alt="Sangre">
+                        
+                        <h3>The invincible man</h3>
+                        <p class="click-hint">Click to reveal</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>“Macbeth! Be brave! You cannot be hurt by any man who was born from a woman.”</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="images/corona.png" class="icon-large" alt="Rama">
+                        
+                        <h3>While the forest sleeps...</h3>
+                        <p class="click-hint">Click to reveal</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>“Be proud, and do not worry. Your enemies will never beat you until Birnam Wood moves to Dunsinane Hill.”</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="the-fall" style="background-color: #0a0a0a; padding: 0;">
+        
+        <div style="display: flex; flex-wrap: wrap; width: 100%; min-height: 500px;">
+
+            <div class="split-poster" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)), url('images/bosque.webp');">
+                <div class="poster-content">
+                    <h2 style="color: #fff; font-size: 3rem; margin-bottom: 10px; border: none;">Birnam Wood</h2>
+                    <p style="font-size: 1.5rem; font-style: italic; color: var(--gold);"> 'My good lord,' the messenger said. <br> 'I have just seen something very strange. <br> I was standing on guard and I looked towards <br> Birnam - and the forest began to move!'</p>
+                </div>
+            </div>
+
+            <div class="split-poster" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.9)), url('images/vela.avif');">
+                <div class="poster-content">
+                    <h2 style="color: #ccc; font-size: 3rem; margin-bottom: 10px; border: none;">Final of The Queen</h2>
+                    <p style="font-size: 1.5rem; font-style: italic; color: var(--blood-red);">'The queen is dead, my Lord'. <br> 'This is not a good time for her to die.' Macbeth said. <br> 'I cannot think about it now.'</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <style>
+        .split-poster {
+            flex: 1;
+            min-width: 300px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center; /* Centrado vertical */
+            justify-content: center; /* Centrado horizontal */
+            transition: all 0.5s ease;
+            position: relative;
+            cursor: default;
+        }
+
+        /* Efecto al pasar el mouse: se oscurece un poco y crece el texto */
+        .split-poster:hover {
+            filter: brightness(1.2);
+            flex: 1.2; /* Crece un poco para ocupar más espacio */
+        }
+
+        .poster-content {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0,0,0,0.4); /* Fondo suave tras el texto para leer bien */
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+    </style>
+
+    <section id="finale">
+        <div class="reveal-box hidden">
+            <h2 style="border-bottom: none; color: var(--gold);">From an invincible naive to a greedy defeated</h2>
+            
+            <p style="font-size: 1.4rem; margin-bottom: 30px;">
+                He thought he was safe, but Macduff told him the truth:
+            </p>
+            
+            <div style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--text-main); border-top: 1px solid #555; border-bottom: 1px solid #555; padding: 20px;">
+                "You are wasting your time!" cried Macbeth. <br>"No man can kill me except one who was not born from a woman!"
+                <br>
+                "Let me tell you, then," cried Macduff. <br> "I was cut from my mother's body early. <br>I was not born in the normal way."
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 40px; text-align: center; border-top: 1px solid #333; color: #666; font-size: 0.8rem;">
+        ARIANA ABRIL MEDINA - INSTITUTO SAN AGUSTIN
+    </footer>
+
+    <script>
+        // SCRIPT PARA ANIMACIONES
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        });
+
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el) => observer.observe(el));
+    </script>
+
+</body>
+<a href="index.html" style="position: fixed; top: 20px; left: 20px; color: #fff; text-decoration: none; font-family: 'Lato', sans-serif; border: 1px solid #fff; padding: 10px 20px; z-index: 1000; background: rgba(0,0,0,0.8);">
+    ←   Home
+</a>
+
+</html>
