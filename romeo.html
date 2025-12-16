@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Romeo y Julieta: Amor y Tragedia</title>
+    <title>Romeo and Juliet: Love & Tragedy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Lato:wght@300;400&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --paper-bg: #fdfbf7; /* Color Pergamino */
-            --ink-color: #2c1810; /* Color Tinta vieja */
-            --romance-red: #8a0303; /* Rojo Rosa/Sangre */
-            --gold: #d4af37; /* Dorado Renacentista */
-            --border-frame: 10px solid transparent;
+            --paper-bg: #fdfbf7; /* Parchment Color */
+            --ink-color: #2c1810; /* Old Ink */
+            --romance-red: #8a0303; /* Blood/Rose Red */
+            --gold: #d4af37; /* Renaissance Gold */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,14 +23,14 @@
             color: var(--ink-color);
             font-family: 'Lato', sans-serif;
             overflow-x: hidden;
-            background-image: url("https://www.transparenttextures.com/patterns/cream-paper.png"); /* Textura de papel */
+            background-image: url("https://www.transparenttextures.com/patterns/cream-paper.png");
         }
 
-        /* --- TIPOGRAFÍA --- */
+        /* --- TYPOGRAPHY --- */
         h1, h2, h3 { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 2px; }
         .script-font { font-family: 'Great Vibes', cursive; font-size: 3rem; color: var(--romance-red); text-transform: none; }
 
-        /* --- BOTÓN VOLVER --- */
+        /* --- NAV BUTTON --- */
         .back-btn {
             position: fixed; top: 20px; left: 20px;
             color: var(--ink-color); text-decoration: none;
@@ -41,9 +40,9 @@
         }
         .back-btn:hover { background: var(--romance-red); color: white; border-color: var(--romance-red); }
 
-        /* --- SECCIONES --- */
+        /* --- SECTIONS --- */
         section {
-            min-height: 90vh;
+            min-height: 80vh; /* Adjusted for better flow */
             padding: 60px 20px;
             display: flex;
             flex-direction: column;
@@ -53,9 +52,9 @@
             position: relative;
         }
 
-        /* --- 1. PORTADA --- */
+        /* 1. HERO */
         #hero {
-            background: linear-gradient(rgba(44, 24, 16, 0.4), rgba(44, 24, 16, 0.4)), url('images/enacentista.jpg');
+            background: linear-gradient(rgba(44, 24, 16, 0.5), rgba(44, 24, 16, 0.5)), url('images/enacentista.jpg'); /* Make sure image exists */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -63,9 +62,9 @@
             border-bottom: 5px solid var(--gold);
         }
         #hero h1 { font-size: 4rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); margin-bottom: 10px; }
-        #hero p { font-size: 1.5rem; font-style: italic; }
+        #hero p { font-size: 1.5rem; font-style: italic; max-width: 800px; line-height: 1.5; }
 
-        /* --- 2. EL CONFLICTO (Montesco vs Capuleto) --- */
+        /* 2. THE FEUD & BANISHMENT */
         .feud-container {
             display: flex;
             justify-content: center;
@@ -76,7 +75,7 @@
         .house-card {
             border: 2px solid var(--gold);
             padding: 30px;
-            width: 300px;
+            width: 350px;
             background: white;
             box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
             position: relative;
@@ -85,25 +84,18 @@
         .house-card.capulet { border-color: var(--romance-red); }
         .house-card.montague { border-color: #2c3e50; }
 
-        /* --- 3. EL BALCÓN (Cita romántica) --- */
-        .romantic-quote-box {
-            background: #fff;
-            padding: 40px;
-            border: 1px solid var(--gold);
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        /* 3. MARRIAGE & CONFLICT (Text Block) */
+        .text-block {
+            max-width: 700px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin: 20px auto;
+            border-left: 3px solid var(--gold);
+            padding-left: 20px;
+            text-align: left;
         }
-        .romantic-quote-box::after {
-            content: ''; position: absolute; top: 5px; left: 5px; right: 5px; bottom: 5px;
-            border: 1px solid var(--ink-color); opacity: 0.2;
-        }
-        .rose-icon { font-size: 3rem; margin-bottom: 20px; display: block; animation: float 3s infinite ease-in-out; }
 
-        @keyframes float { 0% {transform: translateY(0);} 50% {transform: translateY(-10px);} 100% {transform: translateY(0);} }
-
-        /* --- 4. INTERACTIVO: LA CARTA PERDIDA --- */
+        /* 4. THE LETTER */
         #letter-section {
             background-color: #f0e6d2;
             border-top: 1px solid #ccc;
@@ -121,19 +113,16 @@
             align-items: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             transition: transform 0.3s;
+            margin-top: 20px;
         }
         .letter-envelope:hover { transform: scale(1.05); }
         
         .wax-seal {
-            width: 50px;
-            height: 50px;
+            width: 50px; height: 50px;
             background: var(--romance-red);
             border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: rgba(0,0,0,0.3);
-            font-weight: bold;
+            display: flex; justify-content: center; align-items: center;
+            color: rgba(0,0,0,0.3); font-weight: bold;
             box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
             border: 2px dashed rgba(255,255,255,0.2);
         }
@@ -142,7 +131,7 @@
             display: none;
             background: white;
             padding: 30px;
-            max-width: 500px;
+            max-width: 600px;
             font-family: 'Great Vibes', cursive;
             font-size: 1.8rem;
             color: #444;
@@ -153,153 +142,14 @@
         }
         @keyframes unfold { from {opacity: 0; transform: scaleY(0);} to {opacity: 1; transform: scaleY(1);} }
 
-        /* --- 5. EL FINAL (Veneno y Daga) --- */
-        .tomb-section {
-            background: #1a1a1a;
-            color: #ccc;
-        }
-        .timeline {
-            border-left: 2px solid var(--romance-red);
-            padding-left: 30px;
-            max-width: 600px;
-            text-align: left;
-            margin-top: 30px;
-        }
-        .timeline-item { margin-bottom: 30px; position: relative; }
-        .timeline-item::before {
-            content: ''; position: absolute; left: -36px; top: 5px;
-            width: 10px; height: 10px; background: var(--romance-red); border-radius: 50%;
-        }
-
-        /* --- FOOTER --- */
-        footer { padding: 30px; font-size: 0.9rem; border-top: 1px solid #ddd; color: #666; }
-
-    </style>
-</head>
-<body>
-
-    <a href="index.html" class="back-btn">← Menú Principal</a>
-
-    <section id="hero">
-        <h1 class="script-font" style="color: white; font-size: 6rem;">Romeo and Juliet</h1>
-        <p>"Dos importantes familias en la ciudad de Verona..."</p>
-        <div style="margin-top: 30px; font-size: 2rem;">❦</div>
-    </section>
-
-    <section id="context">
-        <h2>El Odio Antiguo</h2>
-        <p style="max-width: 600px; margin-bottom: 30px;">"Sus sirvientes se odiaban unos con otros, y peleaban entre sí siempre que se encontraban."</p>
-        
-        <div class="feud-container">
-            <div class="house-card montague">
-                <h3>Casa Montague</h3>
-                <p>Romeo, Benvolio, Lord y Lady Montague.</p>
-                <p style="margin-top:10px; font-size: 0.9rem; color: #666;">(El hijo melancólico)</p>
-            </div>
-            <div class="house-card capulet">
-                <h3>Casa Capuleto</h3>
-                <p>Julieta, Teobaldo, La Criada, Lord Capuleto.</p>
-                <p style="margin-top:10px; font-size: 0.9rem; color: #666;">(La hija protegida)</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="romance">
-        <span class="rose-icon">🌹</span>
-        <div class="romantic-quote-box">
-            <h2 class="script-font" style="margin-bottom: 20px;">El Balcón</h2>
-            <p style="font-size: 1.3rem; font-style: italic; line-height: 1.6;">
-                "Solo tu nombre es mi enemigo... <br>
-                Si una rosa tuviera otro nombre, aún seguiría oliendo dulce de la misma manera que lo hacía antes."
-            </p>
-            <p style="margin-top: 20px; font-weight: bold; color: var(--romance-red);">— Julieta Capuleto</p>
-        </div>
-        <p style="margin-top: 30px; font-size: 0.9rem;">(Aquí deciden casarse en secreto con la ayuda de Fray Lorenzo)</p>
-    </section>
-
-    <section id="letter-section">
-        <h2>El Plan Fallido</h2>
-        <p style="margin-bottom: 20px;">Fray Lorenzo ideó un plan: Julieta bebería un líquido para parecer muerta por 42 horas.</p>
-        <p style="font-weight: bold; color: var(--romance-red); margin-bottom: 30px;">Pero la carta explicando el plan nunca llegó...</p>
-        
-        <div class="letter-envelope" onclick="openLetter()">
-            <div class="wax-seal">F.L.</div>
-            <span style="margin-left: 15px; font-family: 'Cinzel', serif;">Abrir la Carta Perdida</span>
-        </div>
-
-        <div id="message" class="hidden-message">
-            <p>"Querido Romeo: Julieta no está muerta. <br>
-            Solo duerme. Espérala en la tumba para huir a Mantua. <br>
-            — Fray Lorenzo"</p>
-            <hr style="margin: 15px 0; border: 0; border-top: 1px solid #ddd;">
-            <p style="font-family: 'Lato', sans-serif; font-size: 1rem; color: #8a0303;">
-                (Fray John nunca pudo entregar esta carta por la plaga en Verona).
-            </p>
-        </div>
-    </section>
-
-    <section id="final-tragedy">
-        <h2 style="color: #fff; margin-bottom: 10px;">El Desenlace Fatal</h2>
-        <p style="color: #888; margin-bottom: 40px; font-style: italic;">"Haz clic en las tarjetas para ver el arma mortal"</p>
-
-        <div class="tragedy-grid">
-            
-            <div class="tragedy-flip-card" onclick="this.classList.toggle('flipped')">
-                <div class="tragedy-flip-inner">
-                    <div class="tragedy-flip-front">
-                        <span class="tragedy-icon">☠️</span>
-                        <h3>El Sacrificio de Romeo</h3>
-                        <p>Creyendo a Julieta muerta, bebe la pócima del boticario.</p>
-                        <div class="quote-small">"Con este beso, moriré."</div>
-                        <p class="hint">Click para girar</p>
-                    </div>
-                    <div class="tragedy-flip-back poison-bg">
-                        <h3>El Veneno</h3>
-                        <p>"Boticario, aquí está tu oro..."</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tragedy-flip-card" onclick="this.classList.toggle('flipped')">
-                <div class="tragedy-flip-inner">
-                    <div class="tragedy-flip-front">
-                        <span class="tragedy-icon">💔</span>
-                        <h3>El Despertar Tardío</h3>
-                        <p>Despierta, ve la copa vacía y toma la decisión final.</p>
-                        <div class="quote-small">"¿No dejaste nada para mí?"</div>
-                        <p class="hint">Click para girar</p>
-                    </div>
-                    <div class="tragedy-flip-back dagger-bg">
-                        <h3>La Daga</h3>
-                        <p>"Oh, daga feliz. Esta es tu vaina."</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-    <section id="final-tragedy">
-        <div class="peace-container">
-            <h3 style="color: var(--gold); margin-bottom: 20px;">El Costo de la Paz</h3>
-            <button onclick="revealPeace()" class="peace-btn">Restaurar la Paz</button>
-
-            <div id="peace-content" class="peace-content">
-                <p class="script-font" style="font-size: 2.5rem; color: #fff;">"Dame la mano, hermano."</p>
-                <p style="margin-top: 20px; color: #ccc;">
-                    Montesco y Capuleto olvidan su odio sobre las tumbas de sus hijos.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <style>
+        /* 5. THE FATAL OUTCOME (3D CARDS) */
         #final-tragedy {
             background-color: #0f0f0f;
+            color: #ccc;
             border-top: 3px solid var(--romance-red);
             padding: 80px 20px;
-            perspective: 1000px; /* Necesario para el efecto 3D */
+            perspective: 1000px;
         }
-
         .tragedy-grid {
             display: flex;
             gap: 40px;
@@ -307,97 +157,47 @@
             justify-content: center;
             max-width: 1000px;
             margin-bottom: 60px;
+            margin-top: 40px;
         }
-
-        /* CONFIGURACIÓN DE LA TARJETA 3D */
         .tragedy-flip-card {
             background-color: transparent;
-            width: 320px;
-            height: 400px;
+            width: 320px; height: 400px;
             perspective: 1000px;
             cursor: pointer;
         }
-
         .tragedy-flip-inner {
             position: relative;
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             text-align: center;
             transition: transform 0.8s;
             transform-style: preserve-3d;
         }
-
-        .tragedy-flip-card.flipped .tragedy-flip-inner {
-            transform: rotateY(180deg);
-        }
-
-        /* CARAS DE LA TARJETA */
+        .tragedy-flip-card.flipped .tragedy-flip-inner { transform: rotateY(180deg); }
         .tragedy-flip-front, .tragedy-flip-back {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden; /* Oculta la parte de atrás */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            width: 100%; height: 100%;
+            backface-visibility: hidden;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
             padding: 20px;
             border: 1px solid #333;
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
-
-        /* ESTILO DEL FRENTE */
-        .tragedy-flip-front {
-            background: rgba(255, 255, 255, 0.05);
-            color: #ddd;
-        }
-
-        /* ESTILO DE ATRÁS (GENERAL) */
+        .tragedy-flip-front { background: rgba(255, 255, 255, 0.05); color: #ddd; }
         .tragedy-flip-back {
-            color: white;
-            transform: rotateY(180deg);
+            color: white; transform: rotateY(180deg);
             text-shadow: 2px 2px 4px black;
-            background-size: cover;
-            background-position: center;
+            background-size: cover; background-position: center;
             border: 2px solid var(--gold);
         }
+        .poison-bg { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('images/veneno.png'); }
+        .dagger-bg { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1596557602283-a4c32170668b?q=80&w=600&auto=format&fit=crop'); }
 
-        /* IMÁGENES ESPECÍFICAS PARA EL FONDO DE ATRÁS */
-        .poison-bg {
-            /* Foto de botella antigua oscura */
-            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('images/veneno.png');
-        }
-
-        .dagger-bg {
-            /* Foto de daga/espada */
-            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1596557602283-a4c32170668b?q=80&w=600&auto=format&fit=crop');
-        }
-
-        /* TIPOGRAFÍA Y DETALLES */
         .tragedy-icon { font-size: 3rem; margin-bottom: 15px; }
-        
-        .quote-small {
-            font-family: 'Great Vibes', cursive;
-            font-size: 1.8rem;
-            color: var(--romance-red);
-            margin: 15px 0;
-        }
-        
-        .hint {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #666;
-            margin-top: 20px;
-        }
+        .quote-small { font-family: 'Great Vibes', cursive; font-size: 1.8rem; color: var(--romance-red); margin: 15px 0; }
+        .hint { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: #666; margin-top: 20px; }
 
-        .tragedy-flip-back h3 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            color: var(--gold);
-        }
-
-        /* BOTÓN DE PAZ */
+        /* 6. PEACE BUTTON */
         .peace-container {
             max-width: 700px;
             border: 1px solid var(--gold);
@@ -418,26 +218,131 @@
         .peace-content { display: none; animation: fadeIn 1s; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    </style>
+        /* FOOTER */
+        footer { padding: 30px; font-size: 0.9rem; border-top: 1px solid #ddd; color: #666; }
 
-    <script>
-        function revealPeace() {
-            document.querySelector('.peace-btn').style.display = 'none';
-            document.getElementById('peace-content').style.display = 'block';
-        }
-    </script>
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-btn">← Home</a>
+
+    <section id="hero">
+        <h1 class="script-font" style="color: white; font-size: 6rem;">Romeo and Juliet</h1>
+        <p>"The story unfolds in Verona, where the feud between the Montague and Capulet families condemns their children's love."</p>
+        <div style="margin-top: 30px; font-size: 2rem;">❦</div>
+    </section>
+
+    <section id="context">
+        <h2>The Conflict</h2>
+        <p style="margin-bottom: 30px; max-width: 600px;">
+            Romeo and Juliet meet at a party and secretly marry. But fate turns against them.
+        </p>
+        
+        <div class="feud-container">
+            <div class="house-card montague">
+                <h3>Romeo's Fate</h3>
+                <p style="margin-top: 15px;">He is <strong>banished</strong> from Verona for killing Juliet's cousin in a fight.</p>
+            </div>
+            <div class="house-card capulet">
+                <h3>Juliet's Fate</h3>
+                <p style="margin-top: 15px;">Her parents try to <strong>force her to marry</strong> another man against her will.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="letter-section">
+        <h2>The Risky Plan</h2>
+        <div class="text-block">
+            "In desperation, Juliet agrees to a risky plan: to take a potion to fake her death and then escape with her husband."
+        </div>
+        <p style="font-weight: bold; color: var(--romance-red); margin-bottom: 20px;">The problem is...</p>
+        
+        <div class="letter-envelope" onclick="openLetter()">
+            <div class="wax-seal">F.L.</div>
+            <span style="margin-left: 15px; font-family: 'Cinzel', serif;">Open the Message</span>
+        </div>
+
+        <div id="message" class="hidden-message">
+            <p>"Romeo never receives the message explaining the trick..."</p>
+            <hr style="margin: 15px 0; border: 0; border-top: 1px solid #ddd;">
+            <p style="font-family: 'Lato', sans-serif; font-size: 1.2rem; color: #8a0303;">
+                He believes she has truly died.
+            </p>
+        </div>
+    </section>
+
+    <section id="final-tragedy">
+        <h2 style="color: #fff; margin-bottom: 10px;">The Fatal Outcome</h2>
+        <p style="color: #888; font-style: italic;">"Heartbroken, he goes to her tomb..."</p>
+
+        <div class="tragedy-grid">
+            
+            <div class="tragedy-flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="tragedy-flip-inner">
+                    <div class="tragedy-flip-front">
+                        <span class="tragedy-icon">☠️</span>
+                        <h3>Romeo's Despair</h3>
+                        <p>He thinks she is dead.</p>
+                        <div class="quote-small">Suicide</div>
+                        <p class="hint">Click to reveal method</p>
+                    </div>
+                    <div class="tragedy-flip-back poison-bg">
+                        <h3>Poison</h3>
+                        <p>"Drinking poison to be with her."</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tragedy-flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="tragedy-flip-inner">
+                    <div class="tragedy-flip-front">
+                        <span class="tragedy-icon">💔</span>
+                        <h3>Juliet's Awakening</h3>
+                        <p>She wakes up and sees her beloved lifeless.</p>
+                        <div class="quote-small">Suicide</div>
+                        <p class="hint">Click to reveal method</p>
+                    </div>
+                    <div class="tragedy-flip-back dagger-bg">
+                        <h3>The Dagger</h3>
+                        <p>"Takes her own life."</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="peace-container">
+            <h3 style="color: var(--gold); margin-bottom: 20px;">The Cost of Peace</h3>
+            <button onclick="revealPeace()" class="peace-btn">Reveal Conclusion</button>
+
+            <div id="peace-content" class="peace-content">
+                <p class="script-font" style="font-size: 2rem; color: #fff;">"A Glooming Peace"</p>
+                <p style="margin-top: 20px; color: #ccc; font-size: 1.2rem;">
+                    "Ultimately, this double tragedy leads the families to make a final peace."
+                </p>
+            </div>
+        </div>
+    </section>
 
     <footer>
-        Una historia sobre el amor impaciente y el destino cruel.
+        Based on William Shakespeare's Tragedy
     </footer>
 
     <script>
+        // SCRIPT CARTA
         function openLetter() {
             var envelope = document.querySelector('.letter-envelope');
             var message = document.getElementById('message');
             
-            envelope.style.display = 'none'; // Oculta el sobre
-            message.style.display = 'block'; // Muestra el mensaje
+            envelope.style.display = 'none'; // Hide envelope
+            message.style.display = 'block'; // Show message
+        }
+
+        // SCRIPT PAZ
+        function revealPeace() {
+            document.querySelector('.peace-btn').style.display = 'none';
+            document.getElementById('peace-content').style.display = 'block';
         }
     </script>
 
